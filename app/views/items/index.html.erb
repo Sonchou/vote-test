@@ -1,0 +1,25 @@
+# coding:utf-8
+
+<html>
+<head>
+    <title>投票するよ！</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    
+</head>
+<body>
+    <div class="container">
+        <h1>投票するよー！</h1>
+        
+        <div class="row">
+            <% @parts.each do |part| %>
+                <div class="col-sm-3">
+                    <h2><%= part.name %></h2>
+                    <img class="img-responsive" src="<%= part.img %>">
+                    <h3><%= @votes.where(num: part.id).length %>票</h3>
+                    <button type="button" class="btn btn-success" onClick="location.href='/items/vote/<%= part.id %>'">投票</button>
+                </div>
+            <% end %>
+        </div>
+    </div>
+</body>
+</html>
