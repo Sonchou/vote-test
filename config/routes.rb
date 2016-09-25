@@ -1,12 +1,18 @@
 Rails.application.routes.draw do
   
   get "items/new" => "items#new"
-  get "items/vote/:num" => "items#vote"
-  post "items/add" => "items#add"
+  get "items/newvote/:num" => "items#newvote"
+  get "gencode" => "items#gencode"
+  get "show" => "items#show"
+  get "vote" => "items#vote"
   get "items/show"
   get "items/index"
   get "items/finish"
-  get "show" => "items#show"
+  get "items/err_used" => "items#err_used"
+  post "items/add" => "items#add"
+  
+  get "console" => "items#console"
+  
   root :to => "items#index"
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

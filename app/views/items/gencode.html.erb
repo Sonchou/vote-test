@@ -8,9 +8,10 @@
 </head>
 <body>
     <div class="container">
-    <h1>投票しました</h1>
-    <br>
-    <button type="button" class="btn btn-success" onClick="location.href='/'">戻る</button>
+        <h1>あたらしい投票コード</h1>
+        <hr>
+        <%= image_tag @qr, :size => '200x200' %>
+        <h4><a href="<%= @code %>"><%= @code %></a></h4>
     </div>
 </body>
 </html>
