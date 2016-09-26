@@ -59,12 +59,13 @@ class ItemsController < ApplicationController
             voteid: voteid,
             auth: auth,
             enabled: true)
+        url = "https://vote-sonchou.c9users.io/vote?voteid="+voteid+"&auth="+auth
         # QRコード生成
-        qr = RQRCode::QRCode.new( 'https://github.com/whomwah/rqrcode', :size => 4, :level => :h )
+        qr = RQRCode::QRCode.new( url, :size => 8, :level => :h )
         png = qr.to_img
         png.resize(200, 200).save("app/assets/images/qr_#{voteid}.png")
         @qr = "qr_#{voteid}.png"
-        @code = "https://vote-sonchou.c9users.io/vote?voteid="+voteid+"&auth="+auth
+        @code = url
         @img = ""
         render "gencode"
     end
