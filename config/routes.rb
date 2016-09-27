@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   get "items/err_used" => "items#err_used"
   post "items/add" => "items#add"
   
+  get "pdf" => "items#pdf"
+  post "genpdf" => "items#genpdf"
   get "console" => "items#console"
   
   root :to => "items#index"

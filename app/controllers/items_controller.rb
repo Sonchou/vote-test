@@ -2,6 +2,7 @@ require 'securerandom'
 require 'rqrcode'
 require 'rqrcode_png'
 require 'chunky_png'
+require 'rmagick'
 class ItemsController < ApplicationController
     
     def new
@@ -43,6 +44,9 @@ class ItemsController < ApplicationController
     
     def console
         @votes = Vote.where("ip != ?", "0.0.0.0")
+        if params[:cmd] == "delall" and params[:akaza] == "akari"
+            VotingCode.delete_all
+        end
     end
     
     def add
@@ -54,7 +58,7 @@ class ItemsController < ApplicationController
     
     def gencode
         voteid = VotingCode.count.to_s
-        auth = SecureRandom.hex(8)
+        auth = SecureRandom.hex(4)
         VotingCode.create(
             voteid: voteid,
             auth: auth,
@@ -63,10 +67,9 @@ class ItemsController < ApplicationController
         # QRコード生成
         qr = RQRCode::QRCode.new( url, :size => 8, :level => :h )
         png = qr.to_img
-        png.resize(200, 200).save("app/assets/images/qr_#{voteid}.png")
+        png.resize(100, 100).save("app/assets/images/qr_#{voteid}.png")
         @qr = "qr_#{voteid}.png"
         @code = url
-        @img = ""
         render "gencode"
     end
     
@@ -95,6 +98,32 @@ class ItemsController < ApplicationController
     end
     
     def err_used
+    end
+    
+    def pdf
+    end
+    
+    def genpdf
+        @page = params[:page].to_i * 10
+        arrayQr = []
+        arrayCode = []
+        for _ in 1..@page do
+            voteid = VotingCode.count.to_s
+            auth = SecureRandom.hex(4)
+            VotingCode.create(
+                voteid: voteid,
+                auth: auth,
+                enabled: true)
+            url = "https://vote-sonchou.c9users.io/vote?voteid="+voteid+"&auth="+auth
+            # QRコード生成
+            qr = RQRCode::QRCode.new( url, :size => 8, :level => :h )
+            png = qr.to_img
+            png.resize(100, 100).save("app/assets/images/qr_#{voteid}.png")
+            arrayQr.push("qr_#{voteid}.png")
+            arrayCode.push(url)
+        end
+        @qr = arrayQr
+        @code = arrayCode
     end
     
 end
