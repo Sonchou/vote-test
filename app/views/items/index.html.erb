@@ -9,7 +9,7 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-xs-6"><h1>投票結果だよ！</h1></div>
+            <div class="col-xs-6"><h1>投票結果</h1></div>
             <div class="col-xs-6 text-center"><h1><button type="button" class="btn btn-default" onClick="location.href='/gencode'">投票コードを生成</button></h1></div>
         </div>
         <hr>
@@ -21,8 +21,6 @@
                             <h2><%= part.name %></h2>
                         </div>
                         <div class="panel-body">
-                            <img class="img-responsive" src="<%= part.img %>">
-                            <hr>
                             <h3><%= @votes.where(num: part.id).length %>票</h3>
                         </div>
                     </div>

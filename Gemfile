@@ -26,8 +26,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'rqrcode'
 gem 'rqrcode_png'
 gem 'rmagick'
-gem 'pdfkit'
-gem 'wkhtmltopdf' 
+gem 'prawn'
+gem 'prawn-table'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

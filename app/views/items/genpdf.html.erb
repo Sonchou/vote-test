@@ -8,13 +8,13 @@
     <div class="container">
         <br>
         <div class="row">
-            <% for i in 0..(@page - 1) do  %>
+            <% for i in 0..(@page*10 - 1) do  %>
             <div class="col-xs-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <row>
                             <div class="col-xs-7">
-                                <h5>投票コード（テスト版）</h5>
+                                <h5>TGC投票コード</h5>
                             </div>
                             <div class="col-xs-5">
                                 <%= image_tag @qr[i], :size => '100x100' %>
@@ -26,6 +26,9 @@
                     </div>
                 </div>
             </div>
+            <% if i%10 == 0 then %>
+            <div class = "row"></div>
+            <% end %>
             <% end %>
         </div>
     </div>

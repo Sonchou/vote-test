@@ -50,24 +50,23 @@ class ItemsController < ApplicationController
     end
     
     def add
-        Participant.create(
-            name: params[:name],
-            img: params[:img])
+        Participant.create(name: params[:name])
         redirect_to :action => "index"
     end
     
     def gencode
+        pageurl = "http://takanawa.ddo.jp/"
         voteid = VotingCode.count.to_s
         auth = SecureRandom.hex(4)
         VotingCode.create(
             voteid: voteid,
             auth: auth,
             enabled: true)
-        url = "https://vote-sonchou.c9users.io/vote?voteid="+voteid+"&auth="+auth
+        url = pageurl + "vote?voteid="+voteid+"&auth="+auth
         # QRコード生成
         qr = RQRCode::QRCode.new( url, :size => 8, :level => :h )
         png = qr.to_img
-        png.resize(100, 100).save("app/assets/images/qr_#{voteid}.png")
+        png.resize(200, 200).save("app/assets/images/qr_#{voteid}.png")
         @qr = "qr_#{voteid}.png"
         @code = url
         render "gencode"
@@ -104,21 +103,22 @@ class ItemsController < ApplicationController
     end
     
     def genpdf
-        @page = params[:page].to_i * 10
+        pageurl = "http://takanawa.ddo.jp/"
+        @page = params[:page].to_i
         arrayQr = []
         arrayCode = []
-        for _ in 1..@page do
+        for _ in 1..@page*10 do
             voteid = VotingCode.count.to_s
             auth = SecureRandom.hex(4)
             VotingCode.create(
                 voteid: voteid,
                 auth: auth,
                 enabled: true)
-            url = "https://vote-sonchou.c9users.io/vote?voteid="+voteid+"&auth="+auth
+            url = pageurl + "/vote?voteid="+voteid+"&auth="+auth
             # QRコード生成
             qr = RQRCode::QRCode.new( url, :size => 8, :level => :h )
             png = qr.to_img
-            png.resize(100, 100).save("app/assets/images/qr_#{voteid}.png")
+            png.resize(200, 200).save("app/assets/images/qr_#{voteid}.png")
             arrayQr.push("qr_#{voteid}.png")
             arrayCode.push(url)
         end
