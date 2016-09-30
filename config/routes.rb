@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   post "genpdf" => "items#genpdf"
   get "getpdf" => "items#getpdf"
   get "console" => "items#console"
+  post "console" => "items#console"
   
   root :to => "items#index"
   # The priority is based upon order of creation: first created -> highest priority.

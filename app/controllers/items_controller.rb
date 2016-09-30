@@ -43,10 +43,14 @@ class ItemsController < ApplicationController
     end
     
     def console
-        @votes = Vote.where("ip != ?", "0.0.0.0")
-        if params[:cmd] == "delall" and params[:akaza] == "akari"
+        if params[:akaza] != "akari"
+            redirect_to :action => "index"
+        end
+        if params[:cmd] == "delall"
             VotingCode.delete_all
         end
+        if params[:cmd] == "clear"
+            Vote.delete_all
     end
     
     def add
