@@ -11,11 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160925043028) do
+ActiveRecord::Schema.define(version: 20160930073225) do
 
   create_table "participants", force: :cascade do |t|
     t.string   "img"
     t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pdf_queues", force: :cascade do |t|
+    t.string   "path"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

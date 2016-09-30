@@ -8,11 +8,13 @@ Rails.application.routes.draw do
   get "items/show"
   get "items/index"
   get "items/finish"
+  get "items/getpdf"
   get "items/err_used" => "items#err_used"
   post "items/add" => "items#add"
   
   get "pdf" => "items#pdf"
   post "genpdf" => "items#genpdf"
+  get "getpdf" => "items#getpdf"
   get "console" => "items#console"
   
   root :to => "items#index"
