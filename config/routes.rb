@@ -1,22 +1,23 @@
 Rails.application.routes.draw do
   
-  get "items/new" => "items#new"
+  #et "items/new" => "items#new"
   get "items/newvote/:num" => "items#newvote"
-  get "gencode" => "items#gencode"
-  get "show" => "items#show"
+  #get "gencode" => "items#gencode"
+  #get "show" => "items#show"
   get "vote" => "items#vote"
-  get "items/show"
+  #get "items/show"
   get "items/index"
   get "items/finish"
-  get "items/getpdf"
+  #get "items/getpdf"
   get "items/err_used" => "items#err_used"
-  post "items/add" => "items#add"
+  #post "items/add" => "items#add"
   
-  get "pdf" => "items#pdf"
-  post "genpdf" => "items#genpdf"
-  get "getpdf" => "items#getpdf"
+  #get "pdf" => "items#pdf"
+  #post "genpdf" => "items#genpdf"
+  #get "getpdf" => "items#getpdf"
   get "console" => "items#console"
   post "console" => "items#console"
+  get "result" => "items#result"
   
   root :to => "items#index"
   # The priority is based upon order of creation: first created -> highest priority.

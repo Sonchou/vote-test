@@ -48,9 +48,13 @@ class ItemsController < ApplicationController
         end
         if params[:cmd] == "delall"
             VotingCode.delete_all
+            redirect_to :action => "console", akaza: "akari"
         end
         if params[:cmd] == "clear"
             Vote.delete_all
+            redirect_to :action => "console", akaza: "akari"
+        end
+        @votes = Vote.all
     end
     
     def add
@@ -89,7 +93,6 @@ class ItemsController < ApplicationController
             if auth == code.auth
                 if code.enabled
                     @parts = Participant.all
-                    @votes = Vote.all
                     @voteid = voteid
                 else
                     redirect_to :action => "err_used"
@@ -134,6 +137,14 @@ class ItemsController < ApplicationController
     
     def getpdf
         send_data PdfQr.new.render, filename: "code_#{VotingCode.count}.pdf", type: 'application/pdf'
+    end
+    
+    def result
+        if params[:akaza] != "akari"
+            redirect_to :action => "index"
+        end
+        @parts = Participant.all
+        @votes = Vote.all
     end
     
 end
